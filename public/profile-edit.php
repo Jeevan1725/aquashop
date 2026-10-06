@@ -7,218 +7,79 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-
 require_once __DIR__ . '/../app/bootstrap.php';
 
+$userId = (int)$_SESSION['user']['id'];
 
-$userId = (int) $_SESSION['user']['id'];
-
-
-
-$stmt = $db->prepare("
-    SELECT
-        name,
-        email,
-        phone
-    FROM users
-    WHERE id = ?
-    LIMIT 1
-");
-
-
+$stmt = $db->prepare("SELECT name, email, phone FROM users WHERE id = ? LIMIT 1");
 $stmt->execute([$userId]);
-
-
 $user = $stmt->fetch();
 
-
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
     $name = trim($_POST['name']);
-
     $phone = trim($_POST['phone']);
 
-
-
-    $update = $db->prepare("
-        UPDATE users
-        SET name = ?,
-            phone = ?
-        WHERE id = ?
-    ");
-
-
-    $update->execute([
-        $name,
-        $phone,
-        $userId
-    ]);
-
-
+    $update = $db->prepare("UPDATE users SET name = ?, phone = ? WHERE id = ?");
+    $update->execute([$name, $phone, $userId]);
 
     $_SESSION['user']['name'] = $name;
+    $message = "Profile updated successfully.";
 
-
-    header("Location: profile.php");
-
-    exit;
-
+    // Refresh displayed values
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch();
 }
 
-
 ?>
-
-
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
-<title>
-Edit Profile | AquaShop
-</title>
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Profile | AquaShop</title>
 <link rel="stylesheet" href="css/style.css">
-
-
 </head>
-
-
 <body>
 
+<?php require_once __DIR__ . '/../app/views/navbar.php'; ?>
 
-<header class="navbar">
+<section class="page-section">
 
-<div class="logo">
-🐠 AquaShop
-</div>
+    <div class="page-header">
+        <span class="eyebrow small">MY ACCOUNT</span>
+        <h1>Edit Profile</h1>
+        <p>Update your name and contact details.</p>
+    </div>
 
+    <div class="page-card">
+        <?php if ($message): ?>
+            <div class="auth-success"><?= e($message) ?></div>
+        <?php endif; ?>
 
-<nav>
+        <form method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name"
+                   value="<?= e($user['name']) ?>" required>
 
-<a href="index.php">
-Home
-</a>
+            <label for="email">Email</label>
+            <input type="email" id="email"
+                   value="<?= e($user['email']) ?>" disabled>
 
-<a href="products.php">
-Shop
-</a>
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone"
+                   value="<?= e($user['phone'] ?? '') ?>">
 
-<a href="cart.php">
-Cart 🛒
-</a>
+            <button type="submit" class="btn">Update Profile</button>
+        </form>
 
-<a href="wishlist.php">
-❤️ Wishlist
-</a>
-
-<a href="profile.php">
-Account 👤
-</a>
-
-</nav>
-
-</header>
-
-
-
-<section class="products-page">
-
-
-<h1>
-Edit Profile ✏️
-</h1>
-
-
-
-
-
-<div class="product-card">
-
-
-<div class="product-info">
-
-
-
-<form method="POST">
-
-
-<label>
-Name
-</label>
-
-<br>
-
-
-<input
-type="text"
-name="name"
-value="<?= htmlspecialchars($user['name']) ?>"
-required
->
-
-
-<br><br>
-
-
-
-<label>
-Email
-</label>
-
-<br>
-
-
-<input
-type="email"
-value="<?= htmlspecialchars($user['email']) ?>"
-disabled
->
-
-
-<br><br>
-
-
-
-<label>
-Phone
-</label>
-
-<br>
-
-
-<input
-type="text"
-name="phone"
-value="<?= htmlspecialchars($user['phone'] ?? '') ?>"
->
-
-
-<br><br>
-
-
-
-<button class="cart-button">
-Update Profile
-</button>
-
-
-</form>
-
-
-</div>
-
-
-</div>
-
+        <div class="btn-row" style="margin-top:20px;">
+            <a href="profile.php" class="btn-secondary btn">← Back to Profile</a>
+        </div>
+    </div>
 
 </section>
 
-
 </body>
-
 </html>

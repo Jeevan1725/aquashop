@@ -63,6 +63,8 @@ Order Confirmed | AquaShop
 
 
 <body>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
 
 <h1>
 🎉 Order Placed Successfully!

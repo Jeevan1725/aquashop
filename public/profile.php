@@ -8,123 +8,76 @@ if (!isset($_SESSION['user'])) {
 }
 
 require_once __DIR__ . '/../app/bootstrap.php';
-require_once __DIR__.'/../app/views/navbar.php';
 
-$user = $_SESSION['user'];
-
-
-// Get latest user details
+$userId = (int)$_SESSION['user']['id'];
 
 $stmt = $db->prepare("
-    SELECT
-        id,
-        name,
-        email,
-        phone,
-        created_at
+    SELECT id, name, email, phone, created_at
     FROM users
     WHERE id = ?
     LIMIT 1
 ");
-
-
-$stmt->execute([
-    $user['id']
-]);
-
-
+$stmt->execute([$userId]);
 $profile = $stmt->fetch();
 
-
 ?>
-
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>
-My Profile | AquaShop
-</title>
-
-
+<title>My Profile | AquaShop</title>
 <link rel="stylesheet" href="css/style.css">
-
-
 </head>
-
-
 <body>
 
-<?php require_once __DIR__.'/../app/views/navbar.php'; ?>
+<?php require_once __DIR__ . '/../app/views/navbar.php'; ?>
 
-<section class="profile-page">
-    <div class="profile-header">
-        <div>
-            <span class="eyebrow small">MY ACCOUNT</span>
-            <h1>Profile overview</h1>
-        </div>
+<section class="page-section">
+
+    <div class="page-header">
+        <span class="eyebrow small">MY ACCOUNT</span>
+        <h1>Profile Overview</h1>
+        <p>Your account information and quick actions.</p>
     </div>
 
-    <div class="profile-layout">
-        <article class="profile-panel profile-main">
-            <div class="card-header">
-                <div>
-                    <span class="eyebrow small">PROFILE</span>
-                    <h2>Account details</h2>
-                </div>
+    <div class="profile-layout" style="display:grid;grid-template-columns:1.4fr 1fr;gap:24px;">
+
+        <div class="page-card">
+            <h2>Account Details</h2>
+            <div class="list-item">
+                <span class="list-label">Name</span>
+                <strong><?= e($profile['name']) ?></strong>
             </div>
-
-            <div class="profile-list">
-                <div class="list-item">
-                    <span class="list-label">Name</span>
-                    <strong><?= htmlspecialchars($profile['name']) ?></strong>
-                </div>
-
-                <div class="list-item">
-                    <span class="list-label">Email</span>
-                    <strong><?= htmlspecialchars($profile['email']) ?></strong>
-                </div>
-
-                <div class="list-item">
-                    <span class="list-label">Phone</span>
-                    <strong><?= htmlspecialchars($profile['phone'] ?? 'Not added') ?></strong>
-                </div>
-
-                <div class="list-item">
-                    <span class="list-label">Member since</span>
-                    <strong><?= htmlspecialchars($profile['created_at']) ?></strong>
-                </div>
+            <div class="list-item">
+                <span class="list-label">Email</span>
+                <strong><?= e($profile['email']) ?></strong>
             </div>
-        </article>
-
-        <aside class="profile-panel profile-actions">
-            <div class="card-header">
-                <div>
-                    <span class="eyebrow small">MANAGE</span>
-                    <h2>Quick actions</h2>
-                </div>
+            <div class="list-item">
+                <span class="list-label">Phone</span>
+                <strong><?= e($profile['phone'] ?? 'Not added') ?></strong>
             </div>
+            <div class="list-item">
+                <span class="list-label">Member Since</span>
+                <strong><?= e($profile['created_at']) ?></strong>
+            </div>
+        </div>
 
+        <div class="page-card">
+            <h2>Quick Actions</h2>
             <div class="dashboard-actions">
-                <a href="orders.php" class="action-link">📦 My orders</a>
-                <a href="profile-edit.php" class="action-link">✏️ Edit profile</a>
-                <a href="change-password.php" class="action-link">🔐 Change password</a>
-                <a href="addresses.php" class="action-link">📍 Manage addresses</a>
+                <a href="orders.php" class="action-link">📦 My Orders</a>
+                <a href="profile-edit.php" class="action-link">✏️ Edit Profile</a>
+                <a href="change-password.php" class="action-link">🔐 Change Password</a>
+                <a href="addresses.php" class="action-link">📍 Manage Addresses</a>
                 <a href="wishlist.php" class="action-link">❤️ Wishlist</a>
                 <a href="logout.php" class="action-link">🚪 Logout</a>
             </div>
-        </aside>
+        </div>
+
     </div>
+
 </section>
 
 </body>
-
 </html>

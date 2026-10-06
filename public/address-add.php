@@ -159,27 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 
-<header class="navbar">
-
-    <div class="logo">
-        🐠 AquaShop
-    </div>
-
-    <nav>
-
-        <a href="index.php">Home</a>
-
-        <a href="products.php">Shop</a>
-
-        <a href="cart.php">Cart 🛒</a>
-
-        <a href="wishlist.php">❤️ Wishlist</a>
-
-        <a href="addresses.php">📍 Addresses</a>
-
-    </nav>
-
-</header>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
 
 
 <section class="address-form-page">

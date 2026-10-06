@@ -23,18 +23,7 @@ $addresses = $addressModel->getByUser($userId);
 </head>
 <body>
 
-<header class="navbar">
-    <div class="logo">🐠 AquaShop</div>
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="products.php">Shop</a>
-        <a href="cart.php">Cart 🛒</a>
-        <a href="addresses.php">📍 Addresses</a>
-        <a href="toggle.php" class="mode-toggle <?= is_secure() ? 'mode-secure' : 'mode-vuln' ?>">
-            <?= is_secure() ? '🛡️ SECURE' : '⚠️ VULNERABLE' ?>
-        </a>
-    </nav>
-</header>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
 
 <section style="padding:60px 7%;">
     <h1 style="text-align:center;">📍 My Addresses</h1>

@@ -105,15 +105,7 @@ $payment = $stmt->fetch();
 </head>
 <body>
 
-<header class="navbar">
-    <div class="logo">🐠 AquaShop</div>
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="products.php">Shop</a>
-        <a href="orders.php">My Orders</a>
-        <a href="profile.php">Account 👤</a>
-    </nav>
-</header>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
 
 <div class="invoice-container">
 

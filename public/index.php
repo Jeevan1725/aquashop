@@ -20,62 +20,7 @@ $products = $productModel->getFeaturedProducts();
 
 <body>
 
-<header class="navbar">
-
-    <div class="logo">
-        AquaShop
-    </div>
-
-    <nav>
-
-    <a href="index.php">
-        Home
-    </a>
-
-    <a href="products.php?category=7">
-        Fish
-    </a>
-
-    <a href="products.php?category=10">
-        Aquariums
-    </a>
-
-    <a href="products.php?category=9">
-        Plants
-    </a>
-
-    <a href="products.php?category=11">
-        Equipment
-    </a>
-
-    <a href="products.php?category=12">
-        Fish Food
-    </a>
-
-    <a href="login.php">
-        Login
-    </a>
-
-    <a href="register.php">
-        Register
-    </a>
-
-    <a href="cart.php">
-        Cart
-    </a>
-
-    <!-- Security Mode Toggle -->
-    <a
-        href="toggle.php"
-        class="mode-toggle <?= is_secure() ? 'mode-secure' : 'mode-vuln' ?>"
-        title="Click to switch between vulnerable and secure mode"
-    >
-        <?= is_secure() ? '🛡️ SECURE' : '⚠️ VULNERABLE' ?>
-    </a>
-
-</nav>
-
-</header>
+<?php require_once __DIR__ . "/../app/views/navbar.php"; ?>
 
 
 <section class="hero">
