@@ -1,0 +1,21 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Local configuration — SAMPLE
+|--------------------------------------------------------------------------
+|
+| Copy this file to config.local.php and fill in your real values:
+|
+|     cp app/config/config.local.php.example app/config/config.local.php
+|
+| config.local.php is gitignored and must NEVER be committed.
+|
+*/
+
+return [
+    'db_host' => 'localhost',
+    'db_name' => 'aquashop',
+    'db_user' => 'your_db_user',
+    'db_pass' => 'your_db_password',
+];

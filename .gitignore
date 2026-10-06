@@ -1,0 +1,21 @@
+# Local config with secrets
+app/config/config.local.php
+
+# Uploads
+public/uploads/products/*
+!public/uploads/products/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Allow example config
+!app/config/config.local.php.example
+
+# Backups and source dumps
+*_backup.php
+*_backup.css
+PROJECT_SOURCE.txt
+*.bak

